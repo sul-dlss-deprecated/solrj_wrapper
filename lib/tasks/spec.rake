@@ -10,7 +10,7 @@ namespace :sj_wrap do
       :jetty_home => test_jetty_dir,
       :solr_home => test_jetty_dir + '/solr',
       :java_opts => "-Dsolr.data.dir=" + test_jetty_dir + "/solr/test/data",
-      :jetty_port => 8983,
+      :jetty_port => 8985,
       :startup_wait => 25
     })
     error = Jettywrapper.wrap(jetty_params) do 
