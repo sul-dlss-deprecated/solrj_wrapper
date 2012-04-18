@@ -1,6 +1,5 @@
 # -*- encoding: utf-8 -*-
-require File.expand_path('../lib/solrj_wrapper/version', __FILE__)
-require "solrj_wrapper/version"
+require File.join(File.dirname(__FILE__), 'lib/solrj_wrapper/version')
 
 Gem::Specification.new do |gem|
   gem.name          = "solrj_wrapper"
