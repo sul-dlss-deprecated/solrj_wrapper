@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source :rubygems
 
-# Specify your gem's dependencies in solrj_wrapper.gemspec
+# See solrj_wrapper.gemspec for this gem's dependencies
 gemspec
