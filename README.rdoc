@@ -1,12 +1,12 @@
-# SolrjWrapper
+= SolrjWrapper
 
-TODO: Write a gem description
+Ruby wrapper for interacting with Solrj objects, such as org.apache.solr.client.solrj.impl.StreamingUpdateSolrServer.
 
-## Installation
+== Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'solrj-wrapper'
+    gem 'solrj_wrapper'
 
 And then execute:
 
@@ -14,13 +14,24 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install solrj-wrapper
+    $ gem install solrj_wrapper
 
-## Usage
+== Usage
 
-TODO: Write usage instructions here
+This gem must be run under JRuby, and also requires a directory containing Solrj jar files and solr url (see config/settings.yml)
 
-## Contributing
+Here are some examples of use cribbed from the specs:
+
+	sjw = SolrjWrapper.new(solrj_jar_dir, solr_url, solrj_queue_size, solrj_num_threads)
+  sjw.get_query_result_docs(q).should be_an_instance_of(Java::OrgApacheSolrCommon::SolrDocumentList)
+  sjw.streaming_update_server.should be_an_instance_of(Java::OrgApacheSolrClientSolrjImpl::StreamingUpdateSolrServer)
+  sid = Java::OrgApacheSolrCommon::SolrInputDocument.new
+  sjw.add_vals_to_fld(sid, "single", ["val"])
+
+
+== Contributing
+
+See also the wiki page for committers:  https://github.com/sul-dlss/solrj_wrapper/wiki/For-Committers
 
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
