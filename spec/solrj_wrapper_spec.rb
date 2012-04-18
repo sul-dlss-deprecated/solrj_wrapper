@@ -4,7 +4,7 @@ require 'solrj_wrapper'
 describe SolrjWrapper do
   
   before(:all) do
-    @solrj_wrapper = SolrjWrapper.new(@@settings.solrj_jar_dir, @@settings.solr_url, @@settings.solrj_queue_size, @@settings.solrj_num_threads)
+    @solrj_wrapper = SolrjWrapper.new(@@settings.solrj_jar_dir, @@settings.solr_url, @@settings.solrj_queue_size, @@settings.solrj_num_threads, @@settings.log_level, @@settings.log_file)
   end
   
   it "should initialize a query_server object" do
@@ -30,8 +30,13 @@ describe SolrjWrapper do
     end
 
     it "should return an object of size > 1 when there are hits and rows is > 0" do
+      sid = Java::OrgApacheSolrCommon::SolrInputDocument.new
+      @solrj_wrapper.add_val_to_fld(sid, "id", "test_rec")
+      @solrj_wrapper.add_doc_to_ix(sid, "test_rec")
+      @solrj_wrapper.commit
       q = org.apache.solr.client.solrj.SolrQuery.new
       @solrj_wrapper.get_query_result_docs(q).size.should_not == 0
+      @solrj_wrapper.empty_ix
     end
   end
   

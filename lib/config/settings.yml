@@ -4,6 +4,7 @@ prod:
   solrj_jar_dir: your_solrj_jar_dir
   solrj_queue_size: 20
   solrj_num_threads: 1
+  log_level: error
 
 # settings for local development
 dev:
@@ -11,6 +12,7 @@ dev:
   solrj_jar_dir: solrmarc/dist/lib
   solrj_queue_size: 20
   solrj_num_threads: 1
+  log_level: info
 
 # settings for continuous integration
 ci:
@@ -18,3 +20,4 @@ ci:
   solrj_jar_dir: solrmarc/dist/lib
   solrj_queue_size: 20
   solrj_num_threads: 1
+  log_level: info

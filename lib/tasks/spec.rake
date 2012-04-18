@@ -14,8 +14,6 @@ namespace :sj_wrap do
       :startup_wait => 25
     })
     error = Jettywrapper.wrap(jetty_params) do 
-#      `sh ./spec/scripts/curl_empty_test_solr.sh`
-#      `sh ./spec/scripts/curl_add_bare666_to_test.sh`
       Rake::Task['sj_wrap:rspec_plain'].invoke
     end
     raise "TEST FAILURES: #{error}" if error
