@@ -10,7 +10,7 @@ end
 SimpleCov.formatter = SimpleCov::Formatter::MergedFormatter
 SimpleCov.start do
   add_filter "/spec/"
-  add_filter "/config/"
+  add_filter "/lib/config/"
 end
 
 require 'solrj_wrapper/settings'
