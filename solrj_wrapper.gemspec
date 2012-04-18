@@ -8,7 +8,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["ndushay@stanford.edu"]
   gem.summary       = "Ruby wrapper for interacting with Solrj objects"
   gem.description   = "Ruby wrapper for interacting with Solrj objects, such as org.apache.solr.client.solrj.impl.StreamingUpdateSolrServer"
-  gem.homepage      = "This gem must be run under JRuby, and also requires a directory containing SolrJ jars and solr url (see config/settings.yml)"
+  gem.summary      = "This gem must be run under JRuby, and also requires a directory containing SolrJ jars and solr url (see config/settings.yml)"
 
   gem.files         = `git ls-files`.split($\)
 #  gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
