@@ -1,1 +1,1 @@
-rvm use jruby-1.6.7@solrj_wrapper --create
+rvm use jruby-1.6.7.2@solrj_wrapper --create
