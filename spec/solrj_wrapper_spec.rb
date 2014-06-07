@@ -7,8 +7,8 @@ describe SolrjWrapper do
     @solrj_wrapper = SolrjWrapper.new(@@settings.solrj_jar_dir, @@settings.solr_url, @@settings.solrj_queue_size, @@settings.solrj_num_threads, @@settings.log_level, @@settings.log_file)
   end
   
-  it "should initialize a query_server object" do
-    expect(@solrj_wrapper.query_server).to be_an_instance_of(Java::OrgApacheSolrClientSolrjImpl::HttpSolrServer)
+  it "initializes an HttpSolrServer object" do
+    expect(@solrj_wrapper.http_solr_server).to be_an_instance_of(Java::OrgApacheSolrClientSolrjImpl::HttpSolrServer)
   end
 
   context "get_query_result_docs" do
@@ -38,10 +38,6 @@ describe SolrjWrapper do
       expect(@solrj_wrapper.get_query_result_docs(q).size).not_to eq 0
       @solrj_wrapper.empty_ix
     end
-  end
-  
-  it "streaming_update_server should be an HttpSolrServer object" do
-    expect(@solrj_wrapper.streaming_update_server).to be_an_instance_of(Java::OrgApacheSolrClientSolrjImpl::HttpSolrServer)
   end
   
   context "add_vals_to_fld" do

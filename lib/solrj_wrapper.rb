@@ -6,7 +6,7 @@ require 'logger'
 # Methods required to interact with SolrJ objects, such as org.apache.solr.client.solrj.impl.StreamingUpdateSolrServer
 class SolrjWrapper
   
-  attr_reader :streaming_update_server, :query_server
+  attr_reader :http_solr_server
   attr_accessor :query
   
   # @param solrj_jar_dir  the location of Solrj jars needed to use SolrJ here
@@ -22,15 +22,14 @@ class SolrjWrapper
     @logger = Logger.new(log_file)
     @logger.level = log_level
     load_solrj(solrj_jar_dir)
-    @query_server = org.apache.solr.client.solrj.impl.HttpSolrServer.new(solr_url)
-    @streaming_update_server = @query_server 
+    @http_solr_server = org.apache.solr.client.solrj.impl.HttpSolrServer.new(solr_url)
   end
 
   # send the query to Solr and get the SolrDocumentList from the response
   # @param org.apache.solr.client.solrj.SolrQuery object populated with query information to send to Solr
   # @return Java::OrgApacheSolrCommon::SolrDocumentList per the query.  The list size will be the number of rows in the Solr response
   def get_query_result_docs(query_obj)
-    response = @query_server.query(query_obj)
+    response = @http_solr_server.query(query_obj)
     response.getResults
   end
   
@@ -79,13 +78,13 @@ class SolrjWrapper
     add_vals_to_fld(solr_input_doc, fld_name, val_array)
   end
 
-  # add the doc to Solr by calling add on the Solrj StreamingUpdateServer object
+  # add the doc to Solr by calling add on the Solrj HttpSolrServer object
   # @param solr_input_doc - the SolrInputDocument to be added to the Solr index
   # @param id - the id of the Solr document, used for log messages
   def add_doc_to_ix(solr_input_doc, id)
     unless solr_input_doc.nil?
       begin
-        @streaming_update_server.add(solr_input_doc)
+        @http_solr_server.add(solr_input_doc)
         @logger.info("updating Solr document #{id}")        
       rescue org.apache.solr.common.SolrException => e 
         @logger.error("SolrException while indexing document #{id}")
@@ -95,10 +94,10 @@ class SolrjWrapper
     end
   end
   
-  # send a commit to the Solrj StreamingUpdateServer object
+  # send a commit to the Solrj HttpSolrServer object
   def commit
     begin
-      update_response = @streaming_update_server.commit
+      update_response = @http_solr_server.commit
     rescue org.apache.solr.common.SolrException => e
       @logger.error("SolrException while committing updates")
       @logger.error("#{e.message}")
@@ -108,7 +107,7 @@ class SolrjWrapper
   
   # remove all docs from the Solr index.  Assumes default request handler has type dismax
   def empty_ix
-    delete_response = @streaming_update_server.deleteByQuery("*:*")
+    delete_response = @http_solr_server.deleteByQuery("*:*")
     commit
   end
 
