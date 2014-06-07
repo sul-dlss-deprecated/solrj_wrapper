@@ -15,8 +15,4 @@ end
 
 Dir.glob('lib/tasks/*.rake').each { |r| import r }
 
-namespace :sj_wrap do
-  task :default => :ci  
-  task :rspec => :rspec_plain
-  task :spec => :rspec_plain
-end
+task :default => :rspec_wrapped
