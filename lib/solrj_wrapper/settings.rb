@@ -3,13 +3,12 @@ require 'yaml'
 # Read the .yml file containing the configuration values
 class Settings
   
-  attr_reader :solr_url, :solrj_jar_dir, :solrj_queue_size, :solrj_num_threads, :log_level, :log_file
+  attr_reader :solr_url, :solrj_jar_dir, :solrj_num_threads, :log_level, :log_file
   
   def initialize(settings_group)
     yml = YAML.load_file('lib/config/settings.yml')[settings_group]
     @solr_url = yml["solr_url"]
     @solrj_jar_dir = yml["solrj_jar_dir"]
-    @solrj_queue_size = yml["solrj_queue_size"]
     @solrj_num_threads = yml["solrj_num_threads"]
     @log_level = yml["log_level"]
     @log_file = yml["log_file"]
@@ -19,7 +18,6 @@ class Settings
   def as_hash
     {:solr_url => @solr_url,
       :solrj_jar_dir => @solrj_jar_dir,
-      :solrj_queue_size => @solrj_queue_size,
       :solrj_num_threads => @solrj_num_threads,
       :log_level => get_log_level, 
       :log_file => @log_file

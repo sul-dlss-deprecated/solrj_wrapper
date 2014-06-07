@@ -2,7 +2,6 @@
 prod:
   solr_url: your_production_solr_url
   solrj_jar_dir: your_solrj_jar_dir
-  solrj_queue_size: 20
   solrj_num_threads: 1
   log_level: error
 
@@ -10,7 +9,6 @@ prod:
 dev:
   solr_url: your_dev_solr_url
   solrj_jar_dir: your_solrj_jar_dir
-  solrj_queue_size: 20
   solrj_num_threads: 1
   log_level: info
 
@@ -18,6 +16,5 @@ dev:
 ci:
   solr_url: http://localhost:8984/solr
   solrj_jar_dir: solrmarc-sw/dist/lib
-  solrj_queue_size: 20
   solrj_num_threads: 1
   log_level: info
