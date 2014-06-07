@@ -5,7 +5,9 @@ doc
 .yardoc
 *.lock
 solrmarc.log*
+solrmarc-sw
 pkg
+tmp
 
 ## vim
 *.swp

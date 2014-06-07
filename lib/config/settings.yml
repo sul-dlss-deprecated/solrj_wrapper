@@ -8,16 +8,16 @@ prod:
 
 # settings for local development
 dev:
-  solr_url: http://127.0.0.1:8985/solr/dev
-  solrj_jar_dir: solrmarc/dist/lib
+  solr_url: your_dev_solr_url
+  solrj_jar_dir: your_solrj_jar_dir
   solrj_queue_size: 20
   solrj_num_threads: 1
   log_level: info
 
 # settings for continuous integration
 ci:
-  solr_url: http://127.0.0.1:8985/solr/test
-  solrj_jar_dir: solrmarc/dist/lib
+  solr_url: http://localhost:8984/solr
+  solrj_jar_dir: solrmarc-sw/dist/lib
   solrj_queue_size: 20
   solrj_num_threads: 1
   log_level: info
