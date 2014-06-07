@@ -1,3 +1,0 @@
-[submodule "solrmarc"]
-	path = solrmarc
-	url = git://github.com/solrmarc/stanford-solr-marc.git
