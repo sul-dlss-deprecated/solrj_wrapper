@@ -21,7 +21,9 @@ Or install it yourself as:
 
 == Usage
 
-This gem must be run under JRuby, and also requires a directory containing Solrj jar files and solr url (see config/settings.yml)
+This gem must be run under JRuby, and also requires a directory containing Solrj jar files and solr url (see config/settings.yml).
+
+It is known to work with Solr(J) release 4.4.  Other versions of SolrJ may not work.
 
 Here are some examples of use cribbed from the specs:
 
