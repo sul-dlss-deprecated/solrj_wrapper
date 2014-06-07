@@ -1,0 +1,3 @@
+--title 'SolrjWrapper Documentation'
+lib/**/*.rb -
+README.rdoc LICENSE 
