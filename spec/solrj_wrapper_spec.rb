@@ -4,7 +4,7 @@ require 'solrj_wrapper'
 describe SolrjWrapper do
   
   before(:all) do
-    @solrj_wrapper = SolrjWrapper.new(@@settings.solrj_jar_dir, @@settings.solr_url, @@settings.solrj_num_threads, @@settings.log_level, @@settings.log_file)
+    @solrj_wrapper = SolrjWrapper.new(@@settings.solrj_jar_dir, @@settings.solr_url, @@settings.log_level, @@settings.log_file)
   end
   
   it "initializes an HttpSolrServer object" do

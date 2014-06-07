@@ -11,10 +11,9 @@ class SolrjWrapper
   
   # @param solrj_jar_dir  the location of Solrj jars needed to use SolrJ here
   # @param solr_url  base url of the solr instance
-  # @param num_threads the number of threads to use when writing to Solr (should not be more than the number of cpu cores avail) 
   # @param log_level  level of Logger messages to output; defaults to Logger::INFO
   # @param log_file  file to receive Logger output; defaults to STDERR
-  def initialize(solrj_jar_dir, solr_url, num_threads, log_level=Logger::INFO, log_file=STDERR)
+  def initialize(solrj_jar_dir, solr_url, log_level=Logger::INFO, log_file=STDERR)
     if not defined? JRUBY_VERSION
       raise "SolrjWrapper only runs under jruby"
     end
