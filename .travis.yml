@@ -1,0 +1,13 @@
+language: ruby
+rvm:
+  - jruby-19mode # JRuby in 1.9 mode
+  - jruby-head
+script: 
+  rake rspec_wrapped SETTINGS='ci'
+cache:
+  directories:
+  - solrmarc-sw
+notifications:
+  email:
+    - ndushay@stanford.edu
+    - laneymcg@stanford.edu
