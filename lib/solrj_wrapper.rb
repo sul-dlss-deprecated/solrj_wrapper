@@ -33,13 +33,6 @@ class SolrjWrapper
     response.getResults
   end
   
-  # Send requests using the Javabin binary format instead of serializing to XML
-  # Requires /update/javabin to be defined in solrconfig.xml as
-  # <requestHandler name="/update/javabin" class="solr.BinaryUpdateRequestHandler" />
-  def useJavabin!
-    @streaming_update_server.setRequestWriter Java::org.apache.solr.client.solrj.impl.BinaryRequestWriter.new
-  end
-
   # given a SolrInputDocument, add the field and/or the values.  This will not add empty values, and it will not add duplicate values
   # @param solr_input_doc - the SolrInputDocument object receiving a new field value
   # @param fld_name - the name of the Solr field
