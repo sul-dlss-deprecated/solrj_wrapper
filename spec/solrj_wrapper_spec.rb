@@ -8,25 +8,25 @@ describe SolrjWrapper do
   end
   
   it "should initialize a query_server object" do
-    @solrj_wrapper.query_server.should be_an_instance_of(Java::OrgApacheSolrClientSolrjImpl::CommonsHttpSolrServer)
+    expect(@solrj_wrapper.query_server).to be_an_instance_of(Java::OrgApacheSolrClientSolrjImpl::HttpSolrServer)
   end
 
   context "get_query_result_docs" do
     it "should return a SolrDocumentList object" do
       q = org.apache.solr.client.solrj.SolrQuery.new
-      @solrj_wrapper.get_query_result_docs(q).should be_an_instance_of(Java::OrgApacheSolrCommon::SolrDocumentList)
+      expect(@solrj_wrapper.get_query_result_docs(q)).to be_an_instance_of(Java::OrgApacheSolrCommon::SolrDocumentList)
     end
     
     it "should return an object of size 0 when there are no hits" do
       q = org.apache.solr.client.solrj.SolrQuery.new
       q.setQuery("zzzzzznohitszzzzzzzz")
-      @solrj_wrapper.get_query_result_docs(q).size.should == 0
+      expect(@solrj_wrapper.get_query_result_docs(q).size).to eq 0
     end
     
     it "should return an object of size 0 when rows = 0" do
       q = org.apache.solr.client.solrj.SolrQuery.new
       q.setRows(0)
-      @solrj_wrapper.get_query_result_docs(q).size.should == 0
+      expect(@solrj_wrapper.get_query_result_docs(q).size).to eq 0
     end
 
     it "should return an object of size > 1 when there are hits and rows is > 0" do
@@ -35,67 +35,67 @@ describe SolrjWrapper do
       @solrj_wrapper.add_doc_to_ix(sid, "test_rec")
       @solrj_wrapper.commit
       q = org.apache.solr.client.solrj.SolrQuery.new
-      @solrj_wrapper.get_query_result_docs(q).size.should_not == 0
+      expect(@solrj_wrapper.get_query_result_docs(q).size).not_to eq 0
       @solrj_wrapper.empty_ix
     end
   end
   
-  it "should initialize a streaming_update_server object" do
-    @solrj_wrapper.streaming_update_server.should be_an_instance_of(Java::OrgApacheSolrClientSolrjImpl::StreamingUpdateSolrServer)
+  it "streaming_update_server should be an HttpSolrServer object" do
+    expect(@solrj_wrapper.streaming_update_server).to be_an_instance_of(Java::OrgApacheSolrClientSolrjImpl::HttpSolrServer)
   end
   
   context "add_vals_to_fld" do
     it "should do nothing if the field name or value is nil or of size 0" do
       sid = Java::OrgApacheSolrCommon::SolrInputDocument.new
       @solrj_wrapper.add_vals_to_fld(sid, nil, ["val"])
-      sid.isEmpty.should be_true
+      expect(sid.isEmpty).to eq true
       @solrj_wrapper.add_vals_to_fld(sid, "", ["val"])
-      sid.isEmpty.should be_true
+      expect(sid.isEmpty).to eq true
       @solrj_wrapper.add_vals_to_fld(sid, "fldname", nil)
-      sid.isEmpty.should be_true
+      expect(sid.isEmpty).to eq true
       @solrj_wrapper.add_vals_to_fld(sid, "fldname", [])
-      sid.isEmpty.should be_true
+      expect(sid.isEmpty).to eq true
     end
     
     it "should create a new field when none exists" do
       sid = Java::OrgApacheSolrCommon::SolrInputDocument.new
       @solrj_wrapper.add_vals_to_fld(sid, "single", ["val"])
       vals = sid["single"].getValues
-      vals.size.should == 1
-      vals[0].should == "val"
+      expect(vals.size).to eq 1
+      expect(vals[0]).to eq "val"
       @solrj_wrapper.add_vals_to_fld(sid, "mult", ["val1", "val2"])
       vals = sid["mult"].getValues
-      vals.size.should == 2
-      vals[0].should == "val1"
-      vals[1].should == "val2"
+      expect(vals.size).to eq 2
+      expect(vals[0]).to eq "val1"
+      expect(vals[1]).to eq "val2"
     end
     
     it "should keep the existing values when it adds a value to a field" do
       sid = Java::OrgApacheSolrCommon::SolrInputDocument.new
       @solrj_wrapper.add_vals_to_fld(sid, "fld", ["val"])
       vals = sid["fld"].getValues
-      vals.size.should == 1
-      vals[0].should == "val"
+      expect(vals.size).to eq 1
+      expect(vals[0]).to eq "val"
       @solrj_wrapper.add_vals_to_fld(sid, "fld", ["val1", "val2"])
       vals = sid["fld"].getValues
-      vals.size.should == 3
-      vals.contains("val").should_not be_nil
-      vals.contains("val1").should_not be_nil
-      vals.contains("val2").should_not be_nil
+      expect(vals.size).to eq 3
+      expect(vals.contains("val")).not_to eq nil
+      expect(vals.contains("val1")).not_to eq nil
+      expect(vals.contains("val2")).not_to eq nil
     end
     
     it "should add all values, except those already present" do
       sid = Java::OrgApacheSolrCommon::SolrInputDocument.new
       @solrj_wrapper.add_vals_to_fld(sid, "fld", ["val"])
       vals = sid["fld"].getValues
-      vals.size.should == 1
-      vals[0].should == "val"
+      expect(vals.size).to eq 1
+      expect(vals[0]).to eq "val"
       @solrj_wrapper.add_vals_to_fld(sid, "fld", ["val1", "val2", "val"])
       vals = sid["fld"].getValues
-      vals.size.should == 3
-      vals.contains("val").should_not be_nil
-      vals.contains("val1").should_not be_nil
-      vals.contains("val2").should_not be_nil
+      expect(vals.size).to eq 3
+      expect(vals.contains("val")).not_to eq nil
+      expect(vals.contains("val1")).not_to eq nil
+      expect(vals.contains("val2")).not_to eq nil
     end
   end # context add_vals_to_fld
 
@@ -103,21 +103,21 @@ describe SolrjWrapper do
     it "should do nothing if the field name or value is nil or of size 0" do
       sid = Java::OrgApacheSolrCommon::SolrInputDocument.new
       @solrj_wrapper.add_val_to_fld(sid, nil, "val")
-      sid.isEmpty.should be_true
+      expect(sid.isEmpty).to eq true
       @solrj_wrapper.add_val_to_fld(sid, "", "val")
-      sid.isEmpty.should be_true
+      expect(sid.isEmpty).to eq true
       @solrj_wrapper.add_val_to_fld(sid, "fldname", nil)
-      sid.isEmpty.should be_true
+      expect(sid.isEmpty).to eq true
       @solrj_wrapper.add_val_to_fld(sid, "fldname", [])
-      sid.isEmpty.should be_true
+      expect(sid.isEmpty).to eq true
     end
     
     it "should create a new field when none exists" do
       sid = Java::OrgApacheSolrCommon::SolrInputDocument.new
       @solrj_wrapper.add_val_to_fld(sid, "single", "val")
       vals = sid["single"].getValues
-      vals.size.should == 1
-      vals[0].should == "val"
+      expect(vals.size).to eq 1
+      expect(vals[0]).to eq "val"
     end
     
     it "should keep the existing values when it adds a value to a field" do
@@ -125,10 +125,10 @@ describe SolrjWrapper do
       @solrj_wrapper.add_vals_to_fld(sid, "fld", ["val1", "val2"])
       @solrj_wrapper.add_val_to_fld(sid, "fld", "val")
       vals = sid["fld"].getValues
-      vals.size.should == 3
-      vals.contains("val").should_not be_nil
-      vals.contains("val1").should_not be_nil
-      vals.contains("val2").should_not be_nil
+      expect(vals.size).to eq 3
+      expect(vals.contains("val")).not_to eq nil
+      expect(vals.contains("val1")).not_to eq nil
+      expect(vals.contains("val2")).not_to eq nil
     end
     
     it "should add all values, except those already present" do
@@ -136,10 +136,10 @@ describe SolrjWrapper do
       @solrj_wrapper.add_vals_to_fld(sid, "fld", ["val1", "val2", "val"])
       @solrj_wrapper.add_val_to_fld(sid, "fld", "val")
       vals = sid["fld"].getValues
-      vals.size.should == 3
-      vals.contains("val").should_not be_nil
-      vals.contains("val1").should_not be_nil
-      vals.contains("val2").should_not be_nil
+      expect(vals.size).to eq 3
+      expect(vals.contains("val")).not_to eq nil
+      expect(vals.contains("val1")).not_to eq nil
+      expect(vals.contains("val2")).not_to eq nil
     end
   end # context add_vals_to_fld
 
@@ -149,12 +149,12 @@ describe SolrjWrapper do
       @solrj_wrapper.add_vals_to_fld(sid, "fld", ["val1", "val2", "val3"])
       @solrj_wrapper.replace_field_values(sid, "fld", ["val4", "val5"])
       vals = sid["fld"].getValues
-      vals.size.should == 2
-      vals.contains("val1").should be_false
-      vals.contains("val2").should be_false
-      vals.contains("val3").should be_false
-      vals.contains("val4").should be_true
-      vals.contains("val5").should be_true
+      expect(vals.size).to eq 2
+      expect(vals.contains("val1")).to eq false
+      expect(vals.contains("val2")).to eq false
+      expect(vals.contains("val3")).to eq false
+      expect(vals.contains("val4")).to eq true
+      expect(vals.contains("val5")).to eq true
     end
 
     it "should retain unchanged values" do
@@ -162,26 +162,26 @@ describe SolrjWrapper do
       @solrj_wrapper.add_vals_to_fld(sid, "fld", ["val1", "val2"])
       @solrj_wrapper.replace_field_values(sid, "fld", ["val2", "val3"])
       vals = sid["fld"].getValues
-      vals.size.should == 2
-      vals.contains("val1").should be_false
-      vals.contains("val2").should be_true
-      vals.contains("val3").should be_true
+      expect(vals.size).to eq 2
+      expect(vals.contains("val1")).to eq false
+      expect(vals.contains("val2")).to eq true
+      expect(vals.contains("val3")).to eq true
     end
     
     it "should create a field when none existed before" do
       sid = Java::OrgApacheSolrCommon::SolrInputDocument.new
-      sid["fld"].should be_nil
+      expect(sid["fld"]).to eq nil
       @solrj_wrapper.replace_field_values(sid, "fld", ["val1"])
       vals = sid["fld"].getValues
-      vals.size.should == 1
-      vals.contains("val1").should be_true
+      expect(vals.size).to eq 1
+      expect(vals.contains("val1")).to eq true
     end
     
     it "should remove a field if there are no values to add" do
       sid = Java::OrgApacheSolrCommon::SolrInputDocument.new
       @solrj_wrapper.add_vals_to_fld(sid, "fld", ["val1", "val2"])
       @solrj_wrapper.replace_field_values(sid, "fld", [])
-      sid["fld"].should be_nil
+      expect(sid["fld"]).to eq nil
     end
   end
 
