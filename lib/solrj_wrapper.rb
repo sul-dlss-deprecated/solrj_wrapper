@@ -107,7 +107,7 @@ protected
 
   # require all the necessary jars to use Solrj classes
   def load_solrj(solrj_jar_dir)
-    Dir["#{solrj_jar_dir}/*.jar"].each {|jar_file| require jar_file }
+    Dir["#{solrj_jar_dir}/*.jar"].each {|jar_file| require File.expand_path(jar_file) }
   end
 
 end

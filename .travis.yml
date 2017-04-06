@@ -1,7 +1,7 @@
 language: ruby
 rvm:
   - jruby-19mode # JRuby in 1.9 mode
-  - jruby-head
+  - jruby-9.1.8.0
 script: 
   rake rspec_wrapped SETTINGS='ci'
 cache:
