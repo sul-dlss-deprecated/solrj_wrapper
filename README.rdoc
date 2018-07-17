@@ -1,6 +1,6 @@
 = SolrjWrapper
 
-{<img src="https://travis-ci.org/sul-dlss/solrj_wrapper.svg" alt="Build Status" />}[https://travis-ci.org/sul-dlss/solrj_wrapper] {<img src="https://coveralls.io/repos/sul-dlss/solrj_wrapper/badge.png?branch=master" alt="Coverage Status" />}[https://coveralls.io/r/sul-dlss/solrj_wrapper?branch=master] {<img src="https://gemnasium.com/sul-dlss/solrj_wrapper.png" alt="Dependency Status" />}[https://gemnasium.com/sul-dlss/solrj_wrapper] {<img src="https://badge.fury.io/rb/solrj_wrapper.svg" alt="Gem Version" />}[http://badge.fury.io/rb/solrj_wrapper]
+{<img src="https://travis-ci.org/sul-dlss/solrj_wrapper.svg" alt="Build Status" />}[https://travis-ci.org/sul-dlss/solrj_wrapper] {<img src="https://badge.fury.io/rb/solrj_wrapper.svg" alt="Gem Version" />}[http://badge.fury.io/rb/solrj_wrapper]
 
 
 Ruby wrapper for interacting with Solrj objects, such as org.apache.solr.client.solrj.impl.HttpSolrServer.
