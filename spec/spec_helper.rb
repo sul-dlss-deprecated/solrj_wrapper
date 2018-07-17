@@ -1,9 +1,5 @@
-require 'coveralls'
-Coveralls.wear!
-
 # for test coverage
 require 'simplecov'
-SimpleCov.formatter = Coveralls::SimpleCov::Formatter
 SimpleCov.start do
   add_filter "spec"
   add_filter "config"
